@@ -20,8 +20,18 @@ class RecipesController extends Controller
 
 	public function store(Request $request) 
 	{
-		Recipe::create($request->all());
+		$recipe = new Recipe;
+		$recipe->title = $request->title;
+		$recipe->description = $request->description;
+		$recipe->save();
 
+		foreach ($request->ingredients as $ingredient) {
+			$recipe->ingredients()->create(["name" => $ingredient, 'recipe_id' => $recipe->id]);
+		}
+		foreach ($request->steps as $step) {
+			$recipe->steps()->create(["name" => $step, 'recipe_id' => $recipe->id]);
+		}
+		
 		return redirect('/');
 	}
 
@@ -38,14 +48,12 @@ class RecipesController extends Controller
 	public function update(Request $request, Recipe $recipe)
 	{
 		$recipe->update($request->all());
-
 		return redirect(route('recipes.show', $recipe->id));
 	}
 
 	public function destroy()
 	{
 		$recipe->delete();
-
 		return redirect('/');
 	}
 }

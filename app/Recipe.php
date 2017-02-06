@@ -10,4 +10,14 @@ class Recipe extends Model
         "title",
         "description"
     ];
+
+    public function ingredients()
+    {
+    	return $this->hasMany(Ingredient::class);
+    }
+
+    public function steps()
+    {
+    	return $this->hasMany(Step::class);
+    }
 }
