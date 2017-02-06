@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('recipes', 'RecipesController');
+Route::get('/', 'RecipesController@index');
