@@ -13,3 +13,6 @@
 
 Route::resource('recipes', 'RecipesController');
 Route::get('/', 'RecipesController@index');
+Auth::routes();
+
+Route::get('/home', 'RecipesController@index');
