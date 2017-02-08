@@ -47,12 +47,8 @@ class RecipesController extends Controller
 		$img->save(storage_path('app/') . $recipe->image);
 
 		
-		foreach ($request->ingredients as $ingredient) {
-			$recipe->ingredients()->create(["name" => $ingredient, 'recipe_id' => $recipe->id]);
-		}
-		foreach ($request->steps as $step) {
-			$recipe->steps()->create(["name" => $step, 'recipe_id' => $recipe->id]);
-		}
+		static::addons($request, $recipe, 'ingredients');
+		static::addons($request, $recipe, 'steps');
 		
 		return redirect('/');
 	}
@@ -73,14 +69,9 @@ class RecipesController extends Controller
 		$recipe->ingredients()->delete();
 		$recipe->steps()->delete();
 
-		foreach ($request->ingredients as $ingredient) {
-			$recipe->ingredients()->create(["name" => $ingredient, 'recipe_id' => $recipe->id]);
-		}
+		static::addons($request, $recipe, 'ingredients');
+		static::addons($request, $recipe, 'steps');
 
-		foreach ($request->steps as $step) {
-			$recipe->steps()->create(["name" => $step, 'recipe_id' => $recipe->id]);
-		}
-		
 		return redirect(route('recipes.show', $recipe->id));
 	}
 
@@ -88,5 +79,12 @@ class RecipesController extends Controller
 	{
 		$recipe->delete();
 		return redirect('/');
+	}
+
+	protected static function addons($request, $recipe, $type)
+	{
+		foreach ($request->$type as $ingredient) {
+			$recipe->$type()->create(["name" => $ingredient, 'recipe_id' => $recipe->id]);
+		}
 	}
 }
