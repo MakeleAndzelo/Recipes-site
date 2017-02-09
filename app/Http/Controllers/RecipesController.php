@@ -31,8 +31,8 @@ class RecipesController extends Controller
 			'title' => 'required|min:3|max:20',
 			'description' => 'required|min:20',
 			'image' => 'mimes:jpeg,png,bmp|required',
-			'ingredients' => 'required',
-			'steps' => 'required',
+			'ingredients' => 'required|min:3',
+			'steps' => 'required|min:3',
 		]);
 
 		$recipe = new Recipe;

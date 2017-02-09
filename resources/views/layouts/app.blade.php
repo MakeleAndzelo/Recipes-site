@@ -7,6 +7,7 @@
 </head>
 <body>
 	@include('layouts.header')
+	@include('errors.errors')
 	<div class="container">
 		@yield('content')
 	</div>

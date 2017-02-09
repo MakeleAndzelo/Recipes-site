@@ -130,6 +130,18 @@ body {
 	}
 }
 
-#login, #register {
+#login, #register, .reset {
 	margin-top: 40px;
+}
+
+.error {
+	background: white;
+	padding: 1.5rem;
+	font-size: 1.4rem;
+	&:first-child {
+		margin-top: 40px;
+	}
+	&:last-child {
+		margin-bottom: 0;
+	}
 }
